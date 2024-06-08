@@ -1,9 +1,3 @@
-var pokemonTypes = [
-    {type: 'fire', color: 'orange', weakness: ['water', 'ground', 'rock']},
-    {type: 'water', color: 'blue', weakness: ['grass', 'electric']},
-    {type: 'grass', color: 'green', weakness: ['fire', 'ice', 'poison', 'flying', 'bug']}
-];
-
 /** get container divs from html */
 var container = document.getElementById('container');
 var answerField = document.getElementById('answerField');
