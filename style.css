@@ -1,0 +1,31 @@
+* {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: xx-large;
+}
+
+input {
+    width: 90%;
+    margin: 15px;
+}
+
+#answerContainer {
+    display: flexbox;
+}
+
+#container {
+    text-align: center;
+    margin-top: 5rem;
+}
+
+#type {
+    width: 15%;
+    padding: 25px;
+    margin: auto;
+    color: white;
+}
+
+#answerField {
+    width: 40%;
+    margin: 50px auto;
+    border: 1px solid black;
+}
