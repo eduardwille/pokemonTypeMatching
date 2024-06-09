@@ -20,8 +20,6 @@ function startGame() {
         tempWeaknessArray.push(pokemonTypes[randomizedNumber].weakness[b]);
     }
 
-    console.log(tempWeaknessArray);
-
     /** put randomized pokemontype into the title and change color to match*/
     type.innerHTML = pokemonTypes[randomizedNumber].type;
     type.style.backgroundColor = pokemonTypes[randomizedNumber].color;
@@ -68,18 +66,29 @@ function checkAnswer(input, answer) {
 
 /** this function will give the player a hint */
 function getHint(){
-    console.log(tempWeaknessArray);
-
     var allInputs = document.getElementById('answerField').children;
+    
+    /** create a temporary array that will be used to fill in hints per input
+     * this is the same as tempWeaknessArray, but it will remove the item after every hint use
+     */
+    var array = [];
+    tempWeaknessArray.forEach((weakness) => {
+        array.push(weakness);
+    });
 
+    /** for loop that goes through all the inputs 
+     * when an input is not disabled, enter the first letter as a hint
+     * then remove the item that was used for the hint (remove duplicates)
+    */
     for(c=0; c < allInputs.length; c++){
-        console.log(allInputs[c]);
-
         if(!allInputs[c].disabled){
-            console.log(tempWeaknessArray);
-            for(d=0; d < tempWeaknessArray.length; d++){
-                allInputs[c].value = tempWeaknessArray[d].charAt(0);
+            console.log(allInputs[c]);
+            console.log(array);
+
+            for(d=0; d < array.length; d++){
+                allInputs[c].value = array[0].charAt(0);
             }
+            array.shift();
         }
     }
 }
