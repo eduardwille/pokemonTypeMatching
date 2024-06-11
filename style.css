@@ -8,11 +8,17 @@ input {
     margin: 15px;
 }
 
+#homeMenu {
+    text-align: center;
+    margin-top: 4rem;
+}
+
 #answerContainer {
     display: flexbox;
 }
 
-#container {
+#weaknessContainer {
+    display: none;
     text-align: center;
     margin-top: 5rem;
 }

@@ -7,12 +7,18 @@
     <title>Document</title>
 </head>
 <body>
-    <div id="container">
+    <div id="homeMenu">
+        <h1>Welcome to my pokemon guessing game!</h1>
+        <button onclick="startWeaknessGame()">Guess Type Weaknesses</button>
+    </div>
+
+    <div id="weaknessContainer">
         <p id="type"></p>
         <div id="answerContainer">
             <div id="answerField"></div>
         </div>
         <button onclick="getHint()">Get a hint</button>
+        <button onclick="quitGame()">Stop Playing</button>
     </div>
     
     <script src="pokemonTypes.js"></script>
