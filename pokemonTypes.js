@@ -17,3 +17,5 @@ var pokemonTypes = [
     {type: 'steel', color: 'lightgrey', weakness: ['fire', 'fighting', 'ground']},
     {type: 'fairy', color: 'pink', weakness: ['poison', 'steel']},
 ];
+
+var pokemonTypesFromAPI = [];
