@@ -3,7 +3,13 @@ const apiUrl = 'https://pokeapi.co/api/v2/type/';
 
 // Make a GET request
 function pokeApiCall(){
-    fetch(apiUrl)
+    if(sessionStorage.pokemonTypes){
+        console.log('types retrieved from session instead of making an API call');
+        console.log(getPokemonTypes());
+        sessionStorage.clear();
+    } else {
+        console.log('Types retrieved from API instead of session');
+        fetch(apiUrl)
         .then(response => {
             if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -12,27 +18,16 @@ function pokeApiCall(){
         })
         .then(data => {
             console.log(data);
-            pokemonTypesFromAPI = data;
-            console.log(pokemonTypesFromAPI);
+            sessionStorage.setItem('pokemonTypes', JSON.stringify(data.results));
         })
         .catch(error => {
             console.error('Error:', error);
         });
-}
-
-window.onload = function(){
-    //pokeApiCall();
-    if(sessionStorage.pokemonTypes){
-        console.log('types retrieved from session instead of making an API call');
-        console.log(getPokemonTypes());
-    } else {
-        console.log('Types retrieved from API instead of session');
-        sessionStorage.setItem('pokemonTypes', JSON.stringify(pokemonTypes));
-        console.log(getPokemonTypes());
     }
-    
 }
 
 function getPokemonTypes(){
-    return JSON.parse(sessionStorage.pokemonTypes)
+    return JSON.parse(sessionStorage.pokemonTypes);
 }
+
+pokeApiCall();
