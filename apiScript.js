@@ -21,5 +21,18 @@ function pokeApiCall(){
 }
 
 window.onload = function(){
-    pokeApiCall();
+    //pokeApiCall();
+    if(sessionStorage.pokemonTypes){
+        console.log('types retrieved from session instead of making an API call');
+        console.log(getPokemonTypes());
+    } else {
+        console.log('Types retrieved from API instead of session');
+        sessionStorage.setItem('pokemonTypes', JSON.stringify(pokemonTypes));
+        console.log(getPokemonTypes());
+    }
+    
+}
+
+function getPokemonTypes(){
+    return JSON.parse(sessionStorage.pokemonTypes)
 }
