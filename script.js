@@ -11,6 +11,9 @@ var gridCheckbox = document.getElementById('gridCheckbox');
  */
 var tempWeaknessArray = [];
 
+/** creates the oldRandomizedNumber variable so it can be "if checked" before it being filled */
+var oldRandomizedNumber;
+
 /** starts the weakness guessing game and hides the home menu */
 function startWeaknessGame() {
     startGame();
@@ -21,7 +24,15 @@ function startWeaknessGame() {
 /** large function that sets up everything needed for the game */
 function startGame() {
     /** generate random number based on how many pokemon types */
-    var randomizedNumber = Math.floor(Math.random() * pokemonTypes.length);
+    randomizedNumber = Math.floor(Math.random() * pokemonTypes.length);
+    /** A simple check that sees if the random number is the exact same as previous
+     * Only runs once since chance of getting the same number 3x is incredibly small
+     */
+    if(oldRandomizedNumber == randomizedNumber){
+        randomizedNumber = Math.floor(Math.random() * pokemonTypes.length);
+    }   
+    
+    oldRandomizedNumber = randomizedNumber;
     
     /** push the weakness of current type into array per item so there is no link to array pokemonTypes */
     for(b=0; b < pokemonTypes[randomizedNumber].weakness.length; b++){
@@ -36,7 +47,7 @@ function startGame() {
     if(gridCheckbox.checked == true){
         createTypeGrid();
     } else {
-        createTypeInputs(randomizedNumber);
+        createTypeInputs();
     }
 }
 

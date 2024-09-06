@@ -11,7 +11,9 @@ function createTypeGrid() {
             var typeContainer = document.createElement('p');
             typeContainer.innerHTML = item.type;
             typeContainer.style.backgroundColor = item.color;
-            typeContainer.style.display = 'inline-block';
+            typeContainer.onclick = (function(){
+                console.log(pokemonTypes[randomizedNumber]);
+            });
 
             answerFieldGrid.appendChild(typeContainer);
         });
@@ -22,7 +24,7 @@ function createTypeGrid() {
  * creates input element per weakness   
  * input gets event on enter key which runs the checkAnswer function
 */
-function createTypeInputs(randomizedNumber) {
+function createTypeInputs() {
     answerField.style.display = 'block';
     answerFieldGrid.style.display = 'none';
 
