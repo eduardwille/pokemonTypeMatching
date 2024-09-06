@@ -3,7 +3,9 @@ var homeMenu = document.getElementById('homeMenu');
 var container = document.getElementById('weaknessContainer');
 var answerFieldGrid = document.getElementById('answerFieldGrid');
 var answerField = document.getElementById('answerField');
+var remainingAnswers = document.getElementById('remainingAnswers');
 var type = document.getElementById('type');
+var getHintButton = document.getElementById('getHint');
 var gridCheckbox = document.getElementById('gridCheckbox');
 
 /** create a temporary array
@@ -48,59 +50,6 @@ function startGame() {
         createTypeGrid();
     } else {
         createTypeInputs();
-    }
-}
-
-/** function that checks answer of a specific input
- * then disables that input, and updates css a little
- */
-function checkAnswer(input, answer) {
-    for(a=0; a < tempWeaknessArray.length; a++){
-        if(tempWeaknessArray[a] == answer){
-            input.disabled = 'true';
-            input.style.backgroundColor = 'green';
-            input.style.color = 'white';
-            tempWeaknessArray.splice(a, 1);
-        }
-    }
-
-    /** if answer is incorrect remove text so user can type right away */
-    if(input.style.backgroundColor != 'green'){
-        input.value = '';
-    }
-
-    /** if temporary array is empty all answers were given and reset game */
-    if(tempWeaknessArray == 0){
-        reset();
-    }
-}
-
-/** this function will give the player a hint */
-function getHint(){
-    var allInputs = document.getElementById('answerField').children;
-    
-    /** create a temporary array that will be used to fill in hints per input
-     * this is the same as tempWeaknessArray, but it will remove the item after every hint use
-     */
-    var array = [];
-    tempWeaknessArray.forEach((weakness) => {
-        array.push(weakness);
-    });
-
-    /** for loop that goes through all the inputs 
-     * when an input is not disabled, enter the first letter as a hint
-     * then remove the item that was used for the hint (remove duplicates)
-    */
-    for(c=0; c < allInputs.length; c++){
-        if(!allInputs[c].disabled){
-            console.log(allInputs[c]);
-            console.log(array);
-
-            for(d=0; d < array.length; d++){
-                allInputs[c].value = array[0].charAt(0);
-            }
-            array.shift();
-        }
     }
 }
 
