@@ -4,6 +4,7 @@ var container = document.getElementById('weaknessContainer');
 var answerFieldGrid = document.getElementById('answerFieldGrid');
 var answerField = document.getElementById('answerField');
 var type = document.getElementById('type');
+var gridCheckbox = document.getElementById('gridCheckbox');
 
 /** create a temporary array
  * this will be used to check and remove correct answers so no duplicate answers
@@ -31,19 +32,11 @@ function startGame() {
     type.innerHTML = pokemonTypes[randomizedNumber].type;
     type.style.backgroundColor = pokemonTypes[randomizedNumber].color;
 
-    /** for loop that goes through all the weaknesses of the random type 
-     * creates input element per weakness
-     * input gets event on enter key which runs the checkAnswer function
-    */
-    for (i=0; i < pokemonTypes[randomizedNumber].weakness.length; i++) {
-        var input = document.createElement('input');
-
-        answerField.appendChild(input);
-        input.addEventListener("keydown", function (e) {
-            if (e.key === 'Enter') {
-                checkAnswer(this, this.value);
-            }
-        });
+    /** Function that creates the input fields where the player guesses */
+    if(gridCheckbox.checked == true){
+        createTypeGrid();
+    } else {
+        createTypeInputs(randomizedNumber);
     }
 }
 
