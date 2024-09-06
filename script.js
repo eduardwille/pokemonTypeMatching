@@ -1,6 +1,7 @@
 /** get container divs from html */
 var homeMenu = document.getElementById('homeMenu');
 var container = document.getElementById('weaknessContainer');
+var answerFieldGrid = document.getElementById('answerFieldGrid');
 var answerField = document.getElementById('answerField');
 var type = document.getElementById('type');
 
