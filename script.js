@@ -1,13 +1,20 @@
 /** get container divs from html */
 var homeMenu = document.getElementById('homeMenu');
 var container = document.getElementById('weaknessContainer');
+var answerFieldGrid = document.getElementById('answerFieldGrid');
 var answerField = document.getElementById('answerField');
+var remainingAnswers = document.getElementById('remainingAnswers');
 var type = document.getElementById('type');
+var getHintButton = document.getElementById('getHint');
+var gridCheckbox = document.getElementById('gridCheckbox');
 
 /** create a temporary array
  * this will be used to check and remove correct answers so no duplicate answers
  */
 var tempWeaknessArray = [];
+
+/** creates the oldRandomizedNumber variable so it can be "if checked" before it being filled */
+var oldRandomizedNumber;
 
 /** starts the weakness guessing game and hides the home menu */
 function startWeaknessGame() {
@@ -19,7 +26,15 @@ function startWeaknessGame() {
 /** large function that sets up everything needed for the game */
 function startGame() {
     /** generate random number based on how many pokemon types */
-    var randomizedNumber = Math.floor(Math.random() * pokemonTypes.length);
+    randomizedNumber = Math.floor(Math.random() * pokemonTypes.length);
+    /** A simple check that sees if the random number is the exact same as previous
+     * Only runs once since chance of getting the same number 3x is incredibly small
+     */
+    if(oldRandomizedNumber == randomizedNumber){
+        randomizedNumber = Math.floor(Math.random() * pokemonTypes.length);
+    }   
+    
+    oldRandomizedNumber = randomizedNumber;
     
     /** push the weakness of current type into array per item so there is no link to array pokemonTypes */
     for(b=0; b < pokemonTypes[randomizedNumber].weakness.length; b++){
@@ -30,72 +45,11 @@ function startGame() {
     type.innerHTML = pokemonTypes[randomizedNumber].type;
     type.style.backgroundColor = pokemonTypes[randomizedNumber].color;
 
-    /** for loop that goes through all the weaknesses of the random type 
-     * creates input element per weakness
-     * input gets event on enter key which runs the checkAnswer function
-    */
-    for (i=0; i < pokemonTypes[randomizedNumber].weakness.length; i++) {
-        var input = document.createElement('input');
-
-        answerField.appendChild(input);
-        input.addEventListener("keydown", function (e) {
-            if (e.key === 'Enter') {
-                checkAnswer(this, this.value);
-            }
-        });
-    }
-}
-
-/** function that checks answer of a specific input
- * then disables that input, and updates css a little
- */
-function checkAnswer(input, answer) {
-    for(a=0; a < tempWeaknessArray.length; a++){
-        if(tempWeaknessArray[a] == answer){
-            input.disabled = 'true';
-            input.style.backgroundColor = 'green';
-            input.style.color = 'white';
-            tempWeaknessArray.splice(a, 1);
-        }
-    }
-
-    /** if answer is incorrect remove text so user can type right away */
-    if(input.style.backgroundColor != 'green'){
-        input.value = '';
-    }
-
-    /** if temporary array is empty all answers were given and reset game */
-    if(tempWeaknessArray == 0){
-        reset();
-    }
-}
-
-/** this function will give the player a hint */
-function getHint(){
-    var allInputs = document.getElementById('answerField').children;
-    
-    /** create a temporary array that will be used to fill in hints per input
-     * this is the same as tempWeaknessArray, but it will remove the item after every hint use
-     */
-    var array = [];
-    tempWeaknessArray.forEach((weakness) => {
-        array.push(weakness);
-    });
-
-    /** for loop that goes through all the inputs 
-     * when an input is not disabled, enter the first letter as a hint
-     * then remove the item that was used for the hint (remove duplicates)
-    */
-    for(c=0; c < allInputs.length; c++){
-        if(!allInputs[c].disabled){
-            console.log(allInputs[c]);
-            console.log(array);
-
-            for(d=0; d < array.length; d++){
-                allInputs[c].value = array[0].charAt(0);
-            }
-            array.shift();
-        }
+    /** Function that creates the input fields where the player guesses */
+    if(gridCheckbox.checked == true){
+        createTypeGrid();
+    } else {
+        createTypeInputs();
     }
 }
 

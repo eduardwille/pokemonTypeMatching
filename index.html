@@ -10,18 +10,25 @@
     <div id="homeMenu">
         <h1>Welcome to my pokemon guessing game!</h1>
         <button onclick="startWeaknessGame()">Guess Type Weaknesses</button>
+        <label>Answer Type: Grid<input id="gridCheckbox" type="checkbox"/></label>
     </div>
 
     <div id="weaknessContainer">
         <p id="type"></p>
         <div id="answerContainer">
+            <div>
+                <div id="answerFieldGrid"></div>
+                <p id="remainingAnswers"></p>
+            </div>
             <div id="answerField"></div>
         </div>
-        <button onclick="getHint()">Get a hint</button>
+        <button id="getHint" onclick="getHint()">Get a hint</button>
         <button onclick="quitGame()">Stop Playing</button>
     </div>
     
+    <script src="apiScript.js"></script>
     <script src="pokemonTypes.js"></script>
+    <script src="pokemonInputs.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
